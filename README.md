@@ -1,7 +1,7 @@
 # prjTut_TSP
 
-# Le problème du voyageur de commerce
-## TSP : Travelling Salesman Problem
+# <div align="center">  Le problème du voyageur de commerce</div>
+## <div align="center">  TSP : Travelling Salesman Problem</div>
 
 
 ### 1 Introduction
