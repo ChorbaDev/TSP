@@ -63,7 +63,8 @@ void affiche_km(Graphe g, int n)
 	
 	for(i = 0; i < n; i++)
 	{
-		for(j = 0; j < n; j++) printf("%5d ", g[i][j]);
+		for(j = 0; j < n; j++)
+            printf("%5d ", g[i][j]);
 		printf("\n");
 	}
 }
