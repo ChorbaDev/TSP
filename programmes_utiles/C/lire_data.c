@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+#include "../../src/Algorithmique/PPV/PPV.c"
 // définition du type Graphe comme un tableau à 2 dimensions
 // allocation dynamique faite au moment de la lecture des
 // données dans un fichier
@@ -26,7 +26,18 @@ int main()
 		err = lire_data(nom, &G, &n, &m);
 	}
 	while(err == 0);
-	affiche_km(G, n);
+    affiche_km(G, n);
+    int visite[n],path[n-1];
+    for (int i = 0; i < n; ++i) {
+        visite[i]=0;
+    }
+    for (int i = 0; i < n-1; ++i) {
+        path[n]=0;
+    }
+    PPV(G,n,0,visite,path);
+    for (int i = 0; i < n-1; ++i) {
+        printf("%d-",path[i]);
+    }
 }
 
 int lire_data(char * nom, Graphe * g, int *n, int *m)

@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "fichier.h"
+#define ARRAYSIZE(a) (sizeof(a) / sizeof(a[0]))
 int lire_data(char * nom, Graphe * g, int *n, int *m)
 {
     char str[15];
