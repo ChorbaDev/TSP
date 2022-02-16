@@ -4,6 +4,8 @@
 # usage :
 #            ./lire_data.py communes_10.txt
 #
+#attention c'est du 2.7 donc pas du 3.0 donc risque de pas marcher j'ai ajouter des () mais je sais pas si ça marche
+
 
 import sys
 
@@ -27,14 +29,14 @@ G = dict()
 nom = sys.argv[1]
 n, m, G = lire(nom)
 
-print "nombre de sommets :", n
-print "nombre d'arêtes   :", m
-print "tableau des distaances :"
+print ("nombre de sommets :", n)
+print ("nombre d'arêtes   :", m)
+print ("tableau des distaances :")
 
 for i in range(n):
 	for j in range(n):
 		if i == j:
-			print "  0", 
+			print ("  0", )
 		else:
-			print G[(i,j)],
-	print
+			print (G[(i,j)],)
+	print()
