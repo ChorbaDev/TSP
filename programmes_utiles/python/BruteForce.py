@@ -11,17 +11,14 @@ def BruteForce(tsp,n,startCity):
     while True:
         currentCost=0
         k=startCity
-        minPath=[]
         for i in range(len(vertex)):
             currentCost+=tsp[(k,vertex[i])]
             k=vertex[i]
-            minPath.append(k)
         currentCost+=tsp[(k,startCity)]
         minCost = min(minCost, currentCost)
 
         if not next_perm(vertex):
             break
-    print(minPath)
     print(minCost)
     t1_stop = process_time()
     print("Elapsed time:", t1_stop, t1_start)

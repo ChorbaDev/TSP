@@ -8,6 +8,7 @@
 import sys
 from HillClimbing import hillClimbing
 from BruteForce import  BruteForce
+from Random import RandomSolution
 def lire(name):
 	f = open(name,"r")
 	s = f.readline()
@@ -38,4 +39,5 @@ for i in range(n):
 		else:
 			print (G[(i,j)], end=" "),
 	print()
-BruteForce(G,n,0)
+#BruteForce(G,n,0)
+RandomSolution(G,0,n,2)

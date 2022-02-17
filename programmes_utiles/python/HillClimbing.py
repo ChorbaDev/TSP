@@ -1,15 +1,6 @@
 import random
 from time import process_time
-def randomSolution(n):
-    cities=list(range(n))
-    solution=[]
-    for i in range(n):
-        randomCity=cities[random.randint(0,len(cities)-1)]
-        solution.append(randomCity)
-        cities.remove(randomCity)
-    return solution
-
-
+from help import randomSolution
 def routeLength(tsp, solution):
     routeLength=0
     for i in range(len(solution)):
