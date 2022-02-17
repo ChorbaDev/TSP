@@ -6,7 +6,8 @@
 #
 
 import sys
-
+from HillClimbing import hillClimbing
+from BruteForce import  BruteForce
 def lire(name):
 	f = open(name,"r")
 	s = f.readline()
@@ -27,14 +28,14 @@ G = dict()
 nom = sys.argv[1]
 n, m, G = lire(nom)
 
-print "nombre de sommets :", n
-print "nombre d'arêtes   :", m
-print "tableau des distaances :"
-
+print ("nombre de sommets :", n)
+print ("nombre d'arêtes   :", m)
+print ("tableau des distances :")
 for i in range(n):
 	for j in range(n):
 		if i == j:
-			print "  0", 
+			print("  0", end=" "),
 		else:
-			print G[(i,j)],
-	print
+			print (G[(i,j)], end=" "),
+	print()
+BruteForce(G,n,0)
