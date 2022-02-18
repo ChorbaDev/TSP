@@ -29,5 +29,5 @@ for i in range(nb_perm):
 #  	print T
 	
 sec = (time.time()-start_time)
-print "les", nb_perm, "permutations ont été générées en", "%.6f"%sec, "secondes"
+print ("les", nb_perm, "permutations ont été générées en", "%.6f"%sec, "secondes")
 
