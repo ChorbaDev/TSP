@@ -4,12 +4,13 @@
 # usage :
 #            ./lire_data.py communes_10.txt
 #
-
+import tsp
 import sys
 from HillClimbing import hillClimbing
 from BruteForce import  BruteForce
 from Random import RandomSolution
 from NearestNeighbour import NearestNeighbour
+from help import routeLength
 def lire(name):
 	f = open(name,"r")
 	s = f.readline()
@@ -40,11 +41,16 @@ for i in range(n):
 		else:
 			print (G[(i,j)], end=" "),
 	print()
-#NearestNeighbour(G,n,0)
-#RandomSolution(G,0,n,2)
-#hillClimbing(G,n,0)
-path,cost,time=hillClimbing(G,n,2)
+NearestNeighbour(G,n,0)
+RandomSolution(G,0,n,2)
+hillClimbing(G,n,0)
+path,cost,time=RandomSolution(G,0,n,2)
 print("Starting city :",int(sys.argv[2],10))
 print("Path: ",path)
 print("Cost: ",cost)
 print("Time: ",time)
+"""
+solution=[0,1]
+print(pathCost(G,solution,0))
+print(routeLength(G,solution))
+"""

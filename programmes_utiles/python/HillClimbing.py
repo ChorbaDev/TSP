@@ -1,12 +1,6 @@
 import random
 from time import process_time
-from help import randomSolution
-def routeLength(tsp, solution):
-    routeLength=0
-    for i in range(len(solution)):
-        routeLength+=tsp[(solution[i-1],solution[i])]
-    return routeLength
-
+from help import randomSolution,routeLength
 
 def getNeighbours(solution):
     neighbours=[]
