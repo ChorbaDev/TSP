@@ -40,7 +40,7 @@ for i in range(n):
 		else:
 			print (G[(i,j)], end=" "),
 	print()
-#BruteForce(G,n,0)
+BruteForce(G,n,0)
 #RandomSolution(G,0,n,2)
 #hillClimbing(G,n,0)
-#NearestNeighbour(G,n,0)
+NearestNeighbour(G,n,1)
