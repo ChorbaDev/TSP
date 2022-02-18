@@ -42,4 +42,5 @@ for i in range(n):
 	print()
 #BruteForce(G,n,0)
 #RandomSolution(G,0,n,2)
-NearestNeighbour(G,n,0)
+#hillClimbing(G,n,0)
+#NearestNeighbour(G,n,0)

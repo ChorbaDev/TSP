@@ -9,8 +9,8 @@ def RandomSolution(tsp,town,n,s):
     bestPath=[]
     t1_start = process_time()
     while time.time() < t_end:
-        path=randomSolution(n)
-        cost=pathCost(tsp,town,path)
+        path=randomSolution(n,town)
+        cost=pathCost(tsp,path,town)
         if bestCost>cost:
             bestCost=cost
             bestPath=path.copy()

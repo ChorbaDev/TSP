@@ -1,9 +1,10 @@
 import random
 
-def randomSolution(n):
+def randomSolution(n,town=None):
     cities=list(range(n))
+    cities.remove(cities[town])
     solution=[]
-    for i in range(n):
+    for i in range(n-1):
         randomCity=cities[random.randint(0,len(cities)-1)]
         solution.append(randomCity)
         cities.remove(randomCity)

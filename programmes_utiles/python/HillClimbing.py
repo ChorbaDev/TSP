@@ -28,15 +28,14 @@ def getBestNeighbour(tsp,neighbours):
             bestNeighbour=neighbour
     return bestNeighbour,bestRouteLength
 
-def hillClimbing(tsp,n):
-    currentSolution=randomSolution(n)
+def hillClimbing(tsp,n,town):
+    currentSolution=randomSolution(n,town)
     currentRouteLength=routeLength(tsp,currentSolution)
     neighbours = getNeighbours(currentSolution)
     bestNeighbour,bestNeighbourRouteLength=getBestNeighbour(tsp,neighbours)
 
     t1_start = process_time()
     while bestNeighbourRouteLength < currentRouteLength:
-        print(currentSolution)
         currentSolution=bestNeighbour
         currentRouteLength=bestNeighbourRouteLength
         neighbours=getNeighbours(currentSolution)
