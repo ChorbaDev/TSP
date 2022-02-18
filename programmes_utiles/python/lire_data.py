@@ -9,6 +9,7 @@ import sys
 from HillClimbing import hillClimbing
 from BruteForce import  BruteForce
 from Random import RandomSolution
+from NearestNeighbour import NearestNeighbour
 def lire(name):
 	f = open(name,"r")
 	s = f.readline()
@@ -40,4 +41,5 @@ for i in range(n):
 			print (G[(i,j)], end=" "),
 	print()
 #BruteForce(G,n,0)
-RandomSolution(G,0,n,2)
+#RandomSolution(G,0,n,2)
+NearestNeighbour(G,n,0)

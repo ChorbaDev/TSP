@@ -9,7 +9,7 @@ def randomSolution(n):
         cities.remove(randomCity)
     return solution
 
-def pathCost(tsp,town,path):
+def pathCost(tsp,path,town=None):
     cost=0
     for i in range(len(path)):
         if path[i]==town:
