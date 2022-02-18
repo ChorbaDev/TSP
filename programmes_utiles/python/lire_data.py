@@ -40,7 +40,11 @@ for i in range(n):
 		else:
 			print (G[(i,j)], end=" "),
 	print()
-BruteForce(G,n,0)
+#NearestNeighbour(G,n,0)
 #RandomSolution(G,0,n,2)
 #hillClimbing(G,n,0)
-NearestNeighbour(G,n,1)
+path,cost,time=hillClimbing(G,n,2)
+print("Starting city :",int(sys.argv[2],10))
+print("Path: ",path)
+print("Cost: ",cost)
+print("Time: ",time)

@@ -16,7 +16,4 @@ def RandomSolution(tsp,town,n,s):
             bestPath=path.copy()
 
     t1_stop = process_time()
-    print("Elapsed time:", t1_stop, t1_start)
-    print("Elapsed time during the whole program in seconds:",t1_stop-t1_start)
-    print("Best Cost:", bestCost)
-    print("Best path:", bestPath)
+    return bestPath,bestCost,(t1_stop-t1_start);

@@ -1,3 +1,4 @@
+from math import factorial
 from sys import maxsize
 from time import process_time
 
@@ -7,8 +8,9 @@ def BruteForce(tsp,n,startCity):
         if i != startCity:
             vertex.append(i)
     minCost=maxsize
+    bestPath=[]
+    bestPath.append(startCity)
     t1_start = process_time()
-    count=0
     while next_perm(vertex):
         currentCost=0
         k=startCity
@@ -18,14 +20,11 @@ def BruteForce(tsp,n,startCity):
                 break
             k=vertex[i]
         currentCost+=tsp[(k,startCity)]
-        minCost = min(minCost, currentCost)
-        count+=1
-    print(count)
-    print(minCost)
+        if currentCost<minCost:
+            minCost=currentCost
+            bestPath=vertex.copy()
     t1_stop = process_time()
-    print("Elapsed time:", t1_stop, t1_start)
-    print("Elapsed time during the whole program in seconds:",t1_stop-t1_start)
-
+    return bestPath,minCost,(t1_stop-t1_start)
 
 def next_perm(l):
     n = len(l)
@@ -34,6 +33,7 @@ def next_perm(l):
     while i >= 0 and l[i] > l[i+1]:
         i -= 1
 
+    #that means we used all permutations
     if i == -1:
         return False
 

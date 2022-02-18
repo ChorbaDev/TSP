@@ -19,11 +19,8 @@ def NearestNeighbour(tsp,n,start):
     for i in range(n):
         totalCost+=tsp[(path[i],path[i+1])]
 
-    print("Elapsed time:", t1_stop, t1_start)
-    print("Elapsed time during the whole program in seconds:",t1_stop-t1_start)
+    return path,totalCost,(t1_stop-t1_start)
 
-    print(path)
-    print(totalCost)
 
 def minimum(tsp,path,n,start,startTown):
     minCost=maxsize
