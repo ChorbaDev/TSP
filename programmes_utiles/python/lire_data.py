@@ -11,8 +11,9 @@ from BruteForce import  BruteForce
 from Random import RandomSolution
 from NearestNeighbour import NearestNeighbour
 from Random import RandomSolutionImproved1
-
+from NearestInsertion import NearestInsertion
 from help import routeLength
+
 def lire(name):
 	f = open(name,"r")
 	s = f.readline()
@@ -46,16 +47,17 @@ for i in range(n):
 
 #BruteForce(G,n,0)
 #NearestNeighbour(G,n,0)
-RandomSolutionImproved1(G,0,n,2)
+#RandomSolutionImproved1(G,0,n,2)
 #NearestNeighbour(G,n,0)
 #RandomSolution(G,0,n,2)
-#hillClimbing(G,n,0)
-path,cost,time=RandomSolution(G,0,n,2)
+#NearestInsertion(G,n,0)
+path,cost,time=NearestInsertion(G,n,7)
 print("Starting city :",int(sys.argv[2],10))
 print("Path: ",path)
 print("Cost: ",cost)
 print("Time: ",time)
+"""
 
-"""solution=[0,1]
+solution=[0,1]
 print(pathCost(G,solution,0))
 print(routeLength(G,solution))"""
