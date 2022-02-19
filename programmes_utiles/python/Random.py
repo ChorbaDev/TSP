@@ -43,11 +43,7 @@ def RandomSolutionImproved1(tsp, town, n, s):
     t1_start = process_time()
     while time.time() < t_end:
         path = randomSolution(n, town)
-        print(path)
-        print(routeLength(tsp, path))
         path = two_opt(path, tsp)
-        print(path)
-        print(routeLength(tsp, path))
         cost = routeLength(tsp, path)
         if bestCost > cost:
             bestCost = cost
