@@ -19,12 +19,13 @@ def permut(L):
 		L[i] = L[v]
 		L[v] = yam
 
-nb_perm = int(sys.argv[1])
+nb_perm = int(sys.argv[1],10)
 T = [2*x for x in range(10)]
 
 start_time = time.time()
 
 for i in range(nb_perm):
+	print(T)
 	permut(T)
 #  	print T
 	

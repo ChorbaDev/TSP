@@ -8,7 +8,10 @@
 
 
 import sys
-
+from HillClimbing import hillClimbing
+from BruteForce import  BruteForce
+from Random import RandomSolution
+from NearestNeighbour import NearestNeighbour
 def lire(name):
 	f = open(name,"r")
 	s = f.readline()
@@ -31,12 +34,19 @@ n, m, G = lire(nom)
 
 print ("nombre de sommets :", n)
 print ("nombre d'arêtes   :", m)
-print ("tableau des distaances :")
-
+print ("tableau des distances :")
 for i in range(n):
 	for j in range(n):
 		if i == j:
-			print ("  0", )
+			print("  0", end=" "),
 		else:
-			print (G[(i,j)],)
+			print (G[(i,j)], end=" "),
 	print()
+#NearestNeighbour(G,n,0)
+#RandomSolution(G,0,n,2)
+#hillClimbing(G,n,0)
+path,cost,time=hillClimbing(G,n,2)
+print("Starting city :",int(sys.argv[2],10))
+print("Path: ",path)
+print("Cost: ",cost)
+print("Time: ",time)
