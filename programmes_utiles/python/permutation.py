@@ -4,7 +4,7 @@
 # usage pour 1000 permutations :
 #
 #            ./permutation.py 1000
-#
+##attention c'est du 2.7 donc pas du 3.0 donc risque de pas marcher j'ai ajouter des () mais je sais pas si ça marche
 
 import sys
 import time

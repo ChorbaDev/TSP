@@ -4,6 +4,8 @@
 # usage :
 #            ./lire_data.py communes_10.txt
 #
+#attention c'est du 2.7 donc pas du 3.0 donc risque de pas marcher j'ai ajouter des () mais je sais pas si ça marche
+
 
 import sys
 from HillClimbing import hillClimbing
