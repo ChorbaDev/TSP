@@ -1,7 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import openpyxl
-import scipy.cluster.hierarchy as sch
 import plotly.express as px
 import pandas as pd
 
