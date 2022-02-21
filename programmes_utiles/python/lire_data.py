@@ -48,15 +48,14 @@ for i in range(n):
 			print (G[(i,j)], end=" "),
 	print()
 
-# path,cost,time=BruteForce(G,n,int(sys.argv[2],10))
-# path,cost,time=RandomSolutionImproved1(G,0,n,2)
-path,cost,time=NearestNeighbour(G,n,0)
-# path,cost,time=RandomSolution(G,0,n,2)
+#path,cost,time=BruteForce(G,n,int(sys.argv[2],10))
+#path,cost,time=NearestNeighbour(G,n,0)
+path,cost,time=hillClimbing(G,n,0)
+#path,cost,time=RandomSolution(G,0,n,int(sys.argv[3],10))
 # path,cost,time=NearestInsertion(G,n,7)
 print("Original Path: ",path," COST:",cost)
 path=EchangeDeuxSommets(G,path,2)
 print("Optimized Path: ",path," COST:",routeLength(G,path))
-
 """
 print("Starting city :",int(sys.argv[2],10))
 print("Path: ",path)
