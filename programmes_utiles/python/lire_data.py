@@ -48,16 +48,16 @@ for i in range(n):
 	print()
 
 #BruteForce(G,n,0)
-#NearestNeighbour(G,n,0)
-#RandomSolutionImproved1(G,0,n,2)
+# path,cost,time=NearestNeighbour(G,n,0)
+# path,cost,time=RandomSolutionImproved1(G,0,n,2)
 #NearestNeighbour(G,n,0)
 #RandomSolution(G,0,n,2)
-#NearestInsertion(G,n,0)
+# NearestInsertion(G,n,0)
 path,cost,time=NearestInsertion(G,n,7)
 print("Starting city :",int(sys.argv[2],10))
 print("Path: ",path)
 print("Cost: ",cost)
-print("Time: ",time)
+print("Time: %.6f "%time)
 """
 
 solution=[0,1]
