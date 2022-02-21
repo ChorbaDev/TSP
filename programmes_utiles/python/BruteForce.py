@@ -2,6 +2,8 @@ from math import factorial
 from sys import maxsize
 from time import process_time
 
+#complexity of O(n!)
+
 def BruteForce(tsp,n,startCity):
     vertex=[]
     for i in range(n):

@@ -1,12 +1,6 @@
 import random
 from time import process_time
-from help import randomSolution
-def routeLength(tsp, solution):
-    routeLength=0
-    for i in range(len(solution)):
-        routeLength+=tsp[(solution[i-1],solution[i])]
-    return routeLength
-
+from help import randomSolution,routeLength
 
 def getNeighbours(solution):
     neighbours=[]
@@ -33,7 +27,8 @@ def hillClimbing(tsp,n,town):
     currentRouteLength=routeLength(tsp,currentSolution)
     neighbours = getNeighbours(currentSolution)
     bestNeighbour,bestNeighbourRouteLength=getBestNeighbour(tsp,neighbours)
-
+    print(currentSolution)
+    print(neighbours)
     t1_start = process_time()
     while bestNeighbourRouteLength < currentRouteLength:
         currentSolution=bestNeighbour
@@ -42,3 +37,10 @@ def hillClimbing(tsp,n,town):
         bestNeighbour,bestNeighbourRouteLength=getBestNeighbour(tsp,neighbours)
     t1_stop = process_time()
     return currentSolution,currentRouteLength,(t1_stop-t1_start)
+
+"""
+1: Start from a random state (random order of cities)
+2: Generate all successors (all orderings obtained with switching any two adjacent cities)
+3: Select successor with lowest total cost
+4: Go to step 2
+"""

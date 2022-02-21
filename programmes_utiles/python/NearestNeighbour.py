@@ -1,28 +1,23 @@
-from help import pathCost
 from sys import maxsize
 from time import process_time
-
+from help import routeLength
 def NearestNeighbour(tsp,n,start):
-    path=[]
-    path.append(start)
+    path=[start]
     nextTown=start
 
     t1_start = process_time()
     while len(path)<n:
-        minTown=minimum(tsp,path,n,nextTown,start)
+        minTown=find_closest(tsp,path,n,nextTown,start)
         path.append(minTown)
         nextTown=minTown
     t1_stop = process_time()
 
-    path.append(start)
-    totalCost=0
-    for i in range(n):
-        totalCost+=tsp[(path[i],path[i+1])]
+    totalCost=routeLength(tsp,path)
 
     return path,totalCost,(t1_stop-t1_start)
 
 
-def minimum(tsp,path,n,start,startTown):
+def find_closest(tsp,path,n,start,startTown):
     minCost=maxsize
     minPos=start
     for i in range(n):
