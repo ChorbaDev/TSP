@@ -5,11 +5,6 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-void copyArray(int* dst,int* src,int n){
-    for (int i = 0; i < n; ++i) {
-        dst[i]=src[i];
-    }
-}
 void randomPath(int** tsp,int town,int n,int* path,int permutations){
     srand(time(NULL));
     int *bestPath= malloc(sizeof(int)*n);

@@ -32,12 +32,15 @@ void randomSolution(int n,int startTown,int* path){
     path[0]=startTown;
     for (int i = 0; i < n-1; i++) {
         int a=randomIntInPath(n,startTown,path);
-
         path[i+1]=a;
 
     }
 }
-
+void copyArray(int* dst,int* src,int n){
+    for (int i = 0; i < n; ++i) {
+        dst[i]=src[i];
+    }
+}
 int cost_change(int **tsp,int v,int x,int u,int w){
     return tsp[v][u] + tsp[x][w] - tsp[v][x]- tsp[u][w];
 }

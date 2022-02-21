@@ -3,8 +3,8 @@
 //#include "../../src/Algorithmique/PPV/PPV.c"
 //#include "../../src/Algorithmique/BrutForce/brutForce.c"
 //#include "NearestNeighbour.c"
-#include "Random.c"
-
+//#include "Random.c"
+#include "BruteForce.c"
 
 typedef int ** Graphe;
 
@@ -41,7 +41,8 @@ int main()
 
     //PPV(G,n,0,visite,path);
     //NearestNeighbour(G,n,0,path);
-    randomPath(G,0,n,path,1000000);
+    //randomPath(G,0,n,path,1000000);
+    BruteForce(G,n,0,path);
     t2 = clock();
     printf("nombre de ticks d'horloge avant la boucle : %lu\n", t1);
     printf("nombre de ticks d'horloge après la boucle : %lu\n", t2);
