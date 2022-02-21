@@ -4,7 +4,7 @@ from help import randomSolution,routeLength
 
 def getNeighbours(solution):
     neighbours=[]
-    for i in range(len(solution)):
+    for i in range(1,len(solution)):
         for j in range(i+1,len(solution)):
             neighbour=solution.copy()
             neighbour[i]=solution[j]
@@ -27,7 +27,6 @@ def hillClimbing(tsp,n,town):
     currentRouteLength=routeLength(tsp,currentSolution)
     neighbours = getNeighbours(currentSolution)
     bestNeighbour,bestNeighbourRouteLength=getBestNeighbour(tsp,neighbours)
-
     t1_start = process_time()
     while bestNeighbourRouteLength < currentRouteLength:
         currentSolution=bestNeighbour
