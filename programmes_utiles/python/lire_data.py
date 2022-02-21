@@ -47,13 +47,13 @@ for i in range(n):
 			print (G[(i,j)], end=" "),
 	print()
 
-#BruteForce(G,n,0)
+path,cost,time=BruteForce(G,n,0)
 # path,cost,time=NearestNeighbour(G,n,0)
 # path,cost,time=RandomSolutionImproved1(G,0,n,2)
 #NearestNeighbour(G,n,0)
 #RandomSolution(G,0,n,2)
 # NearestInsertion(G,n,0)
-path,cost,time=NearestInsertion(G,n,7)
+# path,cost,time=NearestInsertion(G,n,7)
 print("Starting city :",int(sys.argv[2],10))
 print("Path: ",path)
 print("Cost: ",cost)
