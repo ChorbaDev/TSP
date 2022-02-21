@@ -9,19 +9,16 @@ def randomSolution(n,town=None):
         solution.append(randomCity)
         cities.remove(randomCity)
     return solution
+"""
+ (v,x) ; (u,w)
+ ( (v,w)+(ux) ) - ( (uw)+(vx) )
+ new - old
+"""
+def cost_change(tsp, v, x, u, w):
+    return tsp[(v, u)] + tsp[(x, w)] - tsp[(v, x)] - tsp[(u, w)]
 
 def routeLength(tsp, solution):
     routeLength=0
     for i in range(len(solution)):
         routeLength+=tsp[(solution[i-1],solution[i])]
     return routeLength
-"""
-def pathCost(tsp,path,town=None):
-    cost=0
-    for i in range(len(path)):
-        if path[i]==town:
-            continue
-        cost+=tsp[(town,path[i])]
-        town=path[i]
-    return cost
-"""

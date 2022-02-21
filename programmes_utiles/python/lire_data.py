@@ -4,17 +4,18 @@
 # usage :
 #            ./lire_data.py communes_10.txt
 #
-#attention c'est du 2.7 donc pas du 3.0 donc risque de pas marcher j'ai ajouter des () mais je sais pas si ça marche
-
 
 import sys
 from HillClimbing import hillClimbing
 from BruteForce import  BruteForce
 from Random import RandomSolution
 from NearestNeighbour import NearestNeighbour
-from Random import RandomSolutionImproved1
 from NearestInsertion import NearestInsertion
+from DynamicProgramming import DynamicProgramming
+from EchangeDeuxSommets import EchangeDeuxSommets
 from help import routeLength
+from programmes_utiles.python.two_opt import two_opt
+
 
 def lire(name):
 	f = open(name,"r")
@@ -47,19 +48,18 @@ for i in range(n):
 			print (G[(i,j)], end=" "),
 	print()
 
-path,cost,time=BruteForce(G,n,0)
-# path,cost,time=NearestNeighbour(G,n,0)
+# path,cost,time=BruteForce(G,n,int(sys.argv[2],10))
 # path,cost,time=RandomSolutionImproved1(G,0,n,2)
-#NearestNeighbour(G,n,0)
-#RandomSolution(G,0,n,2)
-# NearestInsertion(G,n,0)
+path,cost,time=NearestNeighbour(G,n,0)
+# path,cost,time=RandomSolution(G,0,n,2)
 # path,cost,time=NearestInsertion(G,n,7)
+print("Original Path: ",path," COST:",cost)
+path=EchangeDeuxSommets(G,path,2)
+print("Optimized Path: ",path," COST:",routeLength(G,path))
+
+"""
 print("Starting city :",int(sys.argv[2],10))
 print("Path: ",path)
 print("Cost: ",cost)
 print("Time: %.6f "%time)
 """
-
-solution=[0,1]
-print(pathCost(G,solution,0))
-print(routeLength(G,solution))"""

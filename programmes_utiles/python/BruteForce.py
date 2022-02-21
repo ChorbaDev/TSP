@@ -26,6 +26,7 @@ def BruteForce(tsp,n,startCity):
             minCost=currentCost
             bestPath=vertex.copy()
     t1_stop = process_time()
+    bestPath.insert(0,startCity)
     return bestPath,minCost,(t1_stop-t1_start)
 
 def next_perm(l):

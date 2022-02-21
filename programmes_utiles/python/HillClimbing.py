@@ -29,6 +29,7 @@ def hillClimbing(tsp,n,town):
     bestNeighbour,bestNeighbourRouteLength=getBestNeighbour(tsp,neighbours)
     print(currentSolution)
     print(neighbours)
+
     t1_start = process_time()
     while bestNeighbourRouteLength < currentRouteLength:
         currentSolution=bestNeighbour
@@ -36,6 +37,7 @@ def hillClimbing(tsp,n,town):
         neighbours=getNeighbours(currentSolution)
         bestNeighbour,bestNeighbourRouteLength=getBestNeighbour(tsp,neighbours)
     t1_stop = process_time()
+
     return currentSolution,currentRouteLength,(t1_stop-t1_start)
 
 """
