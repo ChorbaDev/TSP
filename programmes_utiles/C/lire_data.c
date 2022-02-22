@@ -1,10 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include "../../src/Algorithmique/PPV/PPV.c"
-#include<time.h>
-// définition du type Graphe comme un tableau à 2 dimensions
-// allocation dynamique faite au moment de la lecture des
-// données dans un fichier
+//#include "../../src/Algorithmique/PPV/PPV.c"
+//#include "../../src/Algorithmique/BrutForce/brutForce.c"
+//#include "NearestNeighbour.c"
+//#include "Random.c"
+#include "BruteForce.c"
+
 typedef int ** Graphe;
 
 // lecture des données dans un fichier et construction du graphe
@@ -12,7 +13,7 @@ int lire_data(char * nom, Graphe * g, int *n, int *m);
 
 // affichage du graphe, i.e. du tableau des distances
 void affiche_km(int ** g, int n);
-
+void affiche_path(int * path, int n);
 int main()
 {
     clock_t t1, t2;
@@ -30,29 +31,25 @@ int main()
 		err = lire_data(nom, &G, &n, &m);
 	}
 	while(err == 0);
-    //affiche_km(G, n);
-    int visite[n],path[n-1];
-    for (int i = 0; i < n; ++i) {
-        visite[i]=0;
-    }
+    affiche_km(G, n);
+    int path[n];
     for (int i = 0; i < n-1; ++i) {
-        path[n]=0;
+        path[i]=-1;
     }
 
     t1 = clock();
 
-    PPV(G,n,0,visite,path);
-
+    //PPV(G,n,0,visite,path);
+    //NearestNeighbour(G,n,0,path);
+    //randomPath(G,0,n,path,1000000);
+    BruteForce(G,n,0,path);
     t2 = clock();
     printf("nombre de ticks d'horloge avant la boucle : %lu\n", t1);
     printf("nombre de ticks d'horloge après la boucle : %lu\n", t2);
     cpu_boucle = (double)(t2-t1)/(double)(CLOCKS_PER_SEC);
     printf("temps cpu de la boucle en secondes %f\n", cpu_boucle);
-
-    for (int i = 0; i < n-1; ++i) {
-        printf("%d-",path[i]);
-    }
-//    printf("%d",path[0]);
+    affiche_path(path,n);
+    printf("\n%d", routeLength(G,n,path));
 }
 
 int lire_data(char * nom, Graphe * g, int *n, int *m)
@@ -86,7 +83,7 @@ int lire_data(char * nom, Graphe * g, int *n, int *m)
 void affiche_km(Graphe g, int n)
 {
 	int i, j;
-	
+
 	for(i = 0; i < n; i++)
 	{
 		for(j = 0; j < n; j++)
