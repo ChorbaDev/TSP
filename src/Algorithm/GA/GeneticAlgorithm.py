@@ -151,5 +151,14 @@ def nextGeneration(currentGen, eliteSize, mutationRate, tsp):
     )
 
 
-def geneticAlgorithm(tsp,population,popSize,eliteSize,mutationRate,generations):
-    print("just for the push")
+def geneticAlgorithm(population, popSize, eliteSize, mutationRate, generations):
+    pop = initPopulation(popSize, population)
+    print("Starting distance : " + str(1 / rankGnomes(pop, population)[0][1]))
+
+    for i in range(0, generations):
+        pop = nextGeneration(pop, eliteSize, mutationRate)
+
+    print("Final distance : " + str(1 / rankGnomes(pop, population)[0][1]))
+    bestGnomeIndex = rankGnomes(pop, population)[0][0]
+    bestGnome = pop[bestGnomeIndex]
+    return bestGnome
