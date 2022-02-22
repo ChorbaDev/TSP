@@ -54,6 +54,7 @@ for i in range(n):
 #RandomSolution(G,0,n,2)
 # NearestInsertion(G,n,0)
 path,cost,time=NearestInsertion(G,n,7)
+# path,cost,time=GenAlg(G,n,0)
 print("Starting city :",int(sys.argv[2],10))
 print("Path: ",path)
 print("Cost: ",cost)

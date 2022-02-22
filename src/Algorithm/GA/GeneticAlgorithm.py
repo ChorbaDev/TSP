@@ -26,7 +26,7 @@ START = 0
 POP_SIZE = 10
 
 
-class LifeForm:
+class Indiv:
 
     def __init__(self) -> None:
         self.gnome = ""
@@ -47,3 +47,5 @@ def mutatedGene(gnome):
         if r2 != r1:
             return swap(gnome, r1, r2)
 
+# def createGnome():
+#
