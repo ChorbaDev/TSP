@@ -14,7 +14,7 @@ from NearestInsertion import NearestInsertion
 from DynamicProgramming import DynamicProgramming
 from EchangeDeuxSommets import EchangeDeuxSommets
 from help import routeLength
-from programmes_utiles.python.two_opt import two_opt
+from two_opt import two_opt
 
 
 def lire(name):
@@ -36,7 +36,6 @@ def lire(name):
 G = dict()
 nom = sys.argv[1]
 n, m, G = lire(nom)
-
 print ("nombre de sommets :", n)
 print ("nombre d'arêtes   :", m)
 print ("tableau des distances :")
@@ -50,11 +49,11 @@ for i in range(n):
 
 #path,cost,time=BruteForce(G,n,int(sys.argv[2],10))
 #path,cost,time=NearestNeighbour(G,n,0)
-path,cost,time=hillClimbing(G,n,0)
-#path,cost,time=RandomSolution(G,0,n,int(sys.argv[3],10))
+# path,cost,time=hillClimbing(G,n,0)
+path,cost,time=RandomSolution(G,0,n,int(sys.argv[3],10))
 # path,cost,time=NearestInsertion(G,n,7)
 print("Original Path: ",path," COST:",cost)
-path=EchangeDeuxSommets(G,path,2)
+# path=EchangeDeuxSommets(G,path,2)
 print("Optimized Path: ",path," COST:",routeLength(G,path))
 # path,cost,time=GenAlg(G,n,0)
 """
