@@ -1,3 +1,5 @@
+from time import process_time
+
 import numpy as np
 import pandas as pd
 
@@ -21,14 +23,6 @@ Algorithm:
     4. Append it to the gene pool
 """
 
-INT_MAX = 9223372036854775807
-
-N_CITIES = 10
-
-START = 0
-
-POP_SIZE = 10
-
 
 class Fitness:
 
@@ -43,16 +37,16 @@ class Fitness:
         return self.fitness
 
 
-def createGnome(tsp, n):
-    gnome = random.sample(tsp, n)
+def createGnome(n):
+    gnome = randomGnome(n)
     return gnome
 
 
-def initPopulation(POPSIZE, tsp):
+def initPopulation(POPSIZE, n):
     population = []
 
     for i in range(0, POPSIZE):
-        population.append(createGnome(tsp))
+        population.append(createGnome(n))
     return population
 
 
@@ -71,6 +65,7 @@ def naturalSelection(popRanked, eliteSize):
 
     for i in range(0, eliteSize):
         selectionResults.append(popRanked[i][0])
+
     for i in range(0, len(popRanked) - eliteSize):
         pick = 100 * random.random()
         for j in range(0, len(popRanked)):
@@ -151,14 +146,25 @@ def nextGeneration(currentGen, eliteSize, mutationRate, tsp):
     )
 
 
-def geneticAlgorithm(population, popSize, eliteSize, mutationRate, generations):
-    pop = initPopulation(popSize, population)
-    print("Starting distance : " + str(1 / rankGnomes(pop, population)[0][1]))
+def randomGnome(n):
+    cities = list(range(n))
+    solution = []
+    for i in range(n):
+        randomCity = cities[random.randint(0, len(cities) - 1)]
+        solution.append(randomCity)
+        cities.remove(randomCity)
+    return solution
 
+
+def geneticAlgorithm(tsp, n, popSize, eliteSize, mutationRate, generations):
+    pop = initPopulation(popSize, n)
+    print("Starting distance : " + str(1 / rankGnomes(pop, tsp)[0][1]))
+    t1_start = process_time()
     for i in range(0, generations):
-        pop = nextGeneration(pop, eliteSize, mutationRate)
-
-    print("Final distance : " + str(1 / rankGnomes(pop, population)[0][1]))
-    bestGnomeIndex = rankGnomes(pop, population)[0][0]
+        pop = nextGeneration(pop, eliteSize, mutationRate, tsp)
+        print(len(pop))
+    t1_stop = process_time()
+    bestGnomeIndex = rankGnomes(pop, tsp)[0][0]
     bestGnome = pop[bestGnomeIndex]
-    return bestGnome
+    bestGnomeCost = routeLength(tsp, bestGnome)
+    return bestGnome, bestGnomeCost, (t1_stop - t1_start)
