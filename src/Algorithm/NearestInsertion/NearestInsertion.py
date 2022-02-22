@@ -1,7 +1,4 @@
 #complexity O(n^2)
-from help import randomSolution,routeLength
-from sys import maxsize
-import random
 from time import process_time
 
 def NearestInsertion(tsp,n,town):

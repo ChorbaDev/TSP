@@ -1,7 +1,4 @@
-from Random import randomSolution
-from two_opt import two_opt
-from time import process_time
-from help import routeLength
+from src.utils.help import routeLength
 import random
 
 import time
@@ -40,4 +37,4 @@ def EchangeDeuxSommets(tsp,path,s):
         if bestCost>cost:
             bestCost=cost
             bestPath=path.copy()
-    return bestPath
+    return bestPath,bestCost

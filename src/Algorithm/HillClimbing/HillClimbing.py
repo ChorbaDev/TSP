@@ -1,6 +1,5 @@
-import random
 from time import process_time
-from help import randomSolution,routeLength
+from src.utils.help import randomSolution,routeLength
 
 def getNeighbours(solution):
     neighbours=[]

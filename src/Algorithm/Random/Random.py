@@ -1,6 +1,6 @@
 import time
 from time import process_time
-from help import randomSolution,routeLength
+from src.utils.help import randomSolution,routeLength
 from sys import maxsize
 
 def RandomSolution(tsp,town,n,s):
