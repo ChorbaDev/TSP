@@ -29,7 +29,7 @@ def printGraph(tsp, n):
     for i in range(n):
         for j in range(n):
             if i == j:
-                print(bcolors.OKBLUE+"  X"+bcolors.ENDC, end=" "),
+                print(bcolors.OKBLUE + "  X" + bcolors.ENDC, end=" "),
             else:
                 print(tsp[(i, j)], end=" "),
         print()
