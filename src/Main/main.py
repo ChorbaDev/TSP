@@ -7,7 +7,7 @@ from src.Algorithm.Optimization.EchangeDeuxSommets import EchangeDeuxSommets
 from src.Algorithm.Optimization.two_opt import two_opt
 from src.Algorithm.Random.Random import RandomSolution
 from src.utils.colors import bcolors
-from src.utils.help import printGraph
+from src.utils.help import printGraph, routeLength
 import sys
 
 nom = "../../communes/communes/" + sys.argv[1]
@@ -54,10 +54,17 @@ print("3- No, Thanks."+bcolors.ENDC)
 answer = int(input("->"))
 if answer in range(1,3):
     switcher={
-        1:EchangeDeuxSommets(G,path,chosenTime),
-        2:two_opt(path,G),
+        1:EchangeDeuxSommets(G,path.copy(),chosenTime),
+        2:two_opt(path.copy(),G),
     }
-    bestPath,bestCost=switcher.get(answer)
+    bestPath,bestCost,comparisons,improve,iterations=switcher.get(answer)
+    print(bcolors.BOLD+"Number of improvements is: ",bcolors.OKGREEN,improve,bcolors.ENDC)
+    print(bcolors.BOLD+"Number of iterations is: ",bcolors.OKGREEN,iterations,bcolors.ENDC)
+    if answer==2:
+        print(bcolors.BOLD+"The comparisons is: ",bcolors.OKGREEN,comparisons,bcolors.ENDC)
     print(bcolors.BOLD+"The optimized path is: ",bcolors.OKGREEN,bestPath,bcolors.ENDC)
     print(bcolors.BOLD+"The optimized cost is: ",bcolors.OKGREEN,bestCost,bcolors.ENDC)
 print(bcolors.HEADER+"See you! Salesman.")
+#2731
+#print(routeLength(G,[0, 9, 7, 2, 1, 4, 6, 3, 8, 5] ))
+#print(two_opt([0, 9, 7, 2, 1, 4, 6, 3, 8, 5] ,G))

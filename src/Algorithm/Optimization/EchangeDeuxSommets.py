@@ -30,11 +30,15 @@ def EchangeDeuxSommets(tsp,path,s):
     bestPath=path.copy()
     bestCost=routeLength(tsp,path)
     start=path[0]
+    improve,comparisons,iterations=0,0,0
+
     while time.time() < t_end:
         i,j=randomEdge(len(path),start)
         path=permute(path,i,j)
         cost=routeLength(tsp,path)
         if bestCost>cost:
+            improve+=1
             bestCost=cost
             bestPath=path.copy()
-    return bestPath,bestCost
+        iterations+=1
+    return bestPath,bestCost,comparisons,improve,iterations
