@@ -1,4 +1,6 @@
 import random
+from time import process_time
+
 from src.utils.help import routeLength
 from sys import maxsize
 
@@ -14,6 +16,7 @@ def ACO(G, n, startTown, iteration, PER, AP, alpha=1, beta=1, q=1):
     startAgain=startTown
     bestTravel=[]
     bestCost=maxsize
+    t1_start = process_time()
     for j in range(iteration):
         notVisited = [*range(n)]
         notVisited.remove(startTown)
@@ -43,4 +46,5 @@ def ACO(G, n, startTown, iteration, PER, AP, alpha=1, beta=1, q=1):
         if cost<bestCost:
             bestCost=cost
             bestTravel=travel.copy()
-    return bestTravel, routeLength(G, bestTravel), 0
+    t1_stop = process_time()
+    return bestTravel, routeLength(G, bestTravel),(t1_stop-t1_start)
