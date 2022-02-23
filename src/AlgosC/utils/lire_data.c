@@ -6,6 +6,7 @@
 #include "../C/NearestNeighbour/NearestNeighbour.c"
 //#include "Random.c"
 //#include "BruteForce.c"
+#include "../C/Optimization/two_opt.c"
 
 typedef int ** Graphe;
 
@@ -43,6 +44,8 @@ int main()
     //PPV(G,n,0,visite,path);
     NearestNeighbour(G,n,0,path);
     //randomPath(G,0,n,path,1000000);
+    //BruteForce(G,n,0,path);
+    //two_opt(path,G);
     //BruteForce(G,n,0,path);
     t2 = clock();
     printf("nombre de ticks d'horloge avant la boucle : %lu\n", t1);
