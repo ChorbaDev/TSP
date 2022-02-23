@@ -1,7 +1,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "help.c"
+#include "../../utils/help.c"
 // swap two characters of string
 void swap(int* sb,int l,int r)
 {
@@ -50,6 +50,7 @@ void insertInPos(int * path,int n,int pos, int town){
     // insert town at pos
     path[pos - 1] = town;
 }
+
 // this function generates next permutation (if there exists any such permutation) from the given string
 // and returns True
 // Else returns false
