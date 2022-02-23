@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 //#include "../../src/Algorithmique/PPV/PPV.c"
 #include "../C/BruteForce/BruteForce.c"
 //#include "NearestNeighbour.c"

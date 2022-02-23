@@ -1,7 +1,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "help.c"
+#include "../../utils/help.c"
 // swap two characters of string
 void swap(int* sb,int l,int r)
 {
