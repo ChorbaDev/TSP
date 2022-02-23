@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 //#include "../../src/Algorithmique/PPV/PPV.c"
-#include "/home/omar/TSP/src/AlgosC/C/BruteForce/BruteForce.c"
+#include "../C/BruteForce/BruteForce.c"
 //#include "NearestNeighbour.c"
 //#include "Random.c"
 //#include "BruteForce.c"
