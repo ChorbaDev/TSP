@@ -5,6 +5,8 @@
 #            ./lire_data.py communes_10.txt
 #
 import sys
+
+
 # from src.Algorithm.Random.Random import RandomSolution
 # from src.utils.help import routeLength
 

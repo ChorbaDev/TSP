@@ -1,10 +1,6 @@
 from time import process_time
-
 import numpy as np
-import pandas as pd
-
 from src.utils.help import *
-import operator as op
 
 """
 Steps :
@@ -24,147 +20,110 @@ Algorithm:
 """
 
 
-class Fitness:
-
-    def __init__(self, gnome) -> None:
-        self.gnome = gnome
-        self.dist = 0
-        self.fitness = 0.0
-
-    def gnomeFitness(self, tsp):
-        if self.fitness == 0:
-            self.fitness = 1 / float(routeLength(tsp, self.gnome))
-        return self.fitness
+def random_gnome(n):
+    cities = list(range(n))
+    solution = []
+    for i in range(n):
+        random_city = cities[random.randint(0, len(cities) - 1)]
+        solution.append(random_city)
+        cities.remove(random_city)
+    return solution
 
 
-def createGnome(n):
-    gnome = randomGnome(n)
-    return gnome
-
-
-def initPopulation(POPSIZE, n):
+def init_pop(tsp, population_size, n):
     population = []
 
-    for i in range(0, POPSIZE):
-        population.append(createGnome(n))
+    for i in range(population_size):
+        gnome = random_gnome(n)
+        population.append(gnome)
     return population
+    # population.append(randomGnome(n,populationSize))
 
 
-def rankGnomes(population, tsp):
-    fitnessLeaderboard = {}
-    for i in range(0, len(population)):
-        fitnessLeaderboard[i] = Fitness(population[i]).gnomeFitness(tsp)
-    return sorted(fitnessLeaderboard.items(), key=op.itemgetter(1), reverse=True)
+def gnome_fitness(tsp, gnome):
+    return routeLength(tsp, gnome)
 
 
-def naturalSelection(popRanked, eliteSize):
-    selectionResults = []
-    df = pd.DataFrame(np.array(popRanked), columns=["Rank", "Fitness"])
-    df['SommeCum'] = df['Fitness'].cumsum()
-    df['PourcentCum'] = 100 * df['SommeCum'] / df['Fitness'].sum()
-
-    for i in range(0, eliteSize):
-        selectionResults.append(popRanked[i][0])
-
-    for i in range(0, len(popRanked) - eliteSize):
-        pick = 100 * random.random()
-        for j in range(0, len(popRanked)):
-            if pick <= df.iat[j, 3]:
-                selectionResults.append(popRanked[j][0])
-                break
-    return selectionResults
+def population_fitness(population, tsp, population_size):
+    fitness_list = np.zeros(population_size)
+    for i in range(population_size):
+        fitness_list[i] = gnome_fitness(tsp, population[i])
+    return fitness_list
 
 
-def matingPool(population, selectionResults):
-    matingpool = []
-    for i in range(0, len(selectionResults)):
-        matingpool.append(population[selectionResults[i]])
-    return matingpool
+def fitest_selection(population, fitness_list):
+    total_fitness = fitness_list.sum()
+    prob_list = fitness_list / total_fitness
+
+    parent_list_a = np.random.choice(list(range(len(population))), len(population), p=prob_list, replace=True)
+    parent_list_b = np.random.choice(list(range(len(population))), len(population), p=prob_list, replace=True)
+
+    parent_list_a = np.array(population)[parent_list_a]
+    parent_list_b = np.array(population)[parent_list_b]
+
+    return np.array([parent_list_a, parent_list_b])
 
 
-def breed(p1, p2):
-    child = []
-    childP1 = []
-    childP2 = []
+def breed_parent(parent_a, parent_b):
+    child = parent_a[0:5]
 
-    geneA = int(random.random() * len(p1))
-    geneB = int(random.random() * len(p1))
+    for city in parent_b:
+        if city not in child:
+            child = np.concatenate((child, [city]))
+    return child
 
-    startGene = min(geneA, geneB)
-    endGene = max(geneA, geneB)
 
-    for i in range(startGene, endGene):
-        childP1.append(p1[i])
-    childP2 = [item for item in p2 if item not in childP1]
+def breed_population(parent_list):
+    new_population = []
+    for i in range(parent_list.shape[1]):
+        parent_a, parent_b = parent_list[0][i], parent_list[1][i]
+        child = breed_parent(parent_a, parent_b)
+        new_population.append(child)
 
-    child = childP1 + childP2
+    return new_population
+
+
+def mutate_child(child, n, mu):
+    for q in range(int(n * mu)):
+        a = np.random.randint(0, n)
+        b = np.random.randint(0, n)
+
+        child[a], child[b] = child[b], child[a]
 
     return child
 
 
-def breedPopulation(matingpool, eliteSize):
-    children = []
-    length = len(matingpool) - eliteSize
-    pool = random.sample(matingpool, len(matingpool))
+def mutate_population(new_population, n, mu):
+    mutated_pop = []
+    for child in new_population:
+        mutated_pop.append(mutate_child(child, n, mu))
 
-    for i in range(0, length):
-        child = breed(pool[i], pool[len(matingpool) - i - 1])
-        children.append(child)
-
-    return children
+    return mutated_pop
 
 
-def mutate(individual, mutationRate):
-    for swapped in range(len(individual)):
-        if (random.random() < mutationRate):
-            swap(individual, swapped, int(random.random() * len(individual)))
-
-    return individual
-
-
-def mutatePopulation(population, mutationRate):
-    mutatedPop = []
-    for indiv in range(0, len(population)):
-        mutatedPop.append(mutate(population[indiv], mutationRate))
-    return mutatedPop
-
-
-def nextGeneration(currentGen, eliteSize, mutationRate, tsp):
-    return mutatePopulation(
-        breedPopulation(
-            matingPool(
-                currentGen, naturalSelection(
-                    rankGnomes(
-                        currentGen, tsp
-                    ),
-                    eliteSize
-                )
-            ),
-            eliteSize
-        ),
-        mutationRate
-    )
-
-
-def randomGnome(n):
-    cities = list(range(n))
-    solution = []
-    for i in range(n):
-        randomCity = cities[random.randint(0, len(cities) - 1)]
-        solution.append(randomCity)
-        cities.remove(randomCity)
-    return solution
-
-
-def geneticAlgorithm(tsp, n, popSize, eliteSize, mutationRate, generations):
-    pop = initPopulation(popSize, n)
-    print("Starting distance : " + str(1 / rankGnomes(pop, tsp)[0][1]))
+def genetic_algorithm(tsp, n, population_size, mu, gen):
+    best_gnome = [-1, np.inf, np.array([])]
+    population = init_pop(tsp, population_size, n)
+    fitness_list = population_fitness(population, tsp, population_size)
+    parent_list = fitest_selection(population, fitness_list)
+    new_population = breed_population(parent_list)
+    mutated_population = mutate_population(new_population, n, mu)
     t1_start = process_time()
-    for i in range(0, generations):
-        pop = nextGeneration(pop, eliteSize, mutationRate, tsp)
-        print(len(pop))
+    for i in range(gen):
+        fitness_list = population_fitness(mutated_population, tsp, population_size)
+
+        if fitness_list.min() < best_gnome[1]:
+            best_gnome[0] = i
+            best_gnome[1] = fitness_list.min()
+            best_gnome[2] = np.array(mutated_population)[fitness_list.min() == fitness_list]
+
+        parent_list = fitest_selection(population, fitness_list)
+        new_population = breed_population(parent_list)
+
+        mutated_population = mutate_population(new_population, n, mu)
     t1_stop = process_time()
-    bestGnomeIndex = rankGnomes(pop, tsp)[0][0]
-    bestGnome = pop[bestGnomeIndex]
-    bestGnomeCost = routeLength(tsp, bestGnome)
-    return bestGnome, bestGnomeCost, (t1_stop - t1_start)
+    best_gen = best_gnome[0]
+    best_cost = best_gnome[1]
+    best_solution = best_gnome[2].tolist()
+
+    return best_solution[0], best_cost, (t1_stop - t1_start)

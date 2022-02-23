@@ -41,8 +41,10 @@ def routeLength(tsp, solution):
         routeLength += tsp[(solution[i - 1], solution[i])]
     return routeLength
 
+
 def rand_num(start, end):
     return random.randint(start, end - 1)
+
 
 def swap(listToSwap, i1, i2):
     temp = listToSwap[i1]
@@ -50,26 +52,27 @@ def swap(listToSwap, i1, i2):
     listToSwap[i2] = temp
     return listToSwap
 
+
 def next_perm(l):
     n = len(l)
-    i = n-2
+    i = n - 2
 
-    while i >= 0 and l[i] > l[i+1]:
+    while i >= 0 and l[i] > l[i + 1]:
         i -= 1
 
-    #that means we used all permutations
+    # that means we used all permutations
     if i == -1:
         return False
 
-    j = i+1
+    j = i + 1
     while j < n and l[j] > l[i]:
         j += 1
 
     j -= 1
 
     l[i], l[j] = l[j], l[i]
-    left = i+1
-    right = n-1
+    left = i + 1
+    right = n - 1
 
     while left < right:
         l[left], l[right] = l[right], l[left]

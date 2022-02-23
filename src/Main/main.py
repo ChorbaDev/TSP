@@ -6,7 +6,7 @@ from src.Algorithm.NearestNeighbour.NearestNeighbour import NearestNeighbour
 from src.Algorithm.Optimization.EchangeDeuxSommets import EchangeDeuxSommets
 from src.Algorithm.Optimization.two_opt import two_opt
 from src.Algorithm.Random.Random import RandomSolution
-from src.Algorithm.GA.GeneticAlgorithm import geneticAlgorithm
+from src.Algorithm.GA.GeneticAlgorithm import genetic_algorithm
 from src.utils.colors import bcolors
 from src.utils.help import printGraph, routeLength
 from src.utils.drawingMap import drawPath
@@ -46,7 +46,8 @@ elif algo == 4:
     path, cost, time = NearestInsertion(G, n, 7)
 elif algo == 5:
     path, cost, time = hillClimbing(G, n, chosenStartTown)
-# elif algo==6 : path, cost, time=geneticAlgorithm(G, n, 100, 20, 0.01, generations=500)
+elif algo == 6:
+    path, cost, time = genetic_algorithm(G, n, 100, 0.3, 10000)
 # elif algo==7 : path, cost, time=ACO(G, n, 100, 20, 0.01, generations=500)
 
 print(bcolors.BOLD + "Starting city :", bcolors.OKGREEN, int(sys.argv[2], 10), bcolors.ENDC)
@@ -78,7 +79,7 @@ print(bcolors.BOLD + bcolors.WARNING + "Do you want to plot the graph?")
 print(bcolors.UNDERLINE + "1- Plot graph.")
 print("2- Please, exit." + bcolors.ENDC)
 answer = int(input("->"))
-if answer==1:
+if answer == 1:
     path.append(path[0])
     drawPath(file=file, scale=n, paths=path)
 

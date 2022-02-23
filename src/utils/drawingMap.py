@@ -35,7 +35,7 @@ def drawPath(file='../../communes/communes.xlsx', scale=10, paths=None) -> None:
                 lat=[df_paths['latitude'][paths[i]], df_paths['latitude'][paths[i + 1]]],
                 mode='lines',
                 name="ordre= " + str(paths[i]),
-                hovertext="Start point : " + str(paths[i]) + " End Point : " + str(paths[i+1]),
+                hovertext="Start point : " + str(paths[i]) + " End Point : " + str(paths[i + 1]),
                 line=dict(width=1, color='red'),
                 # opacity=float(df_paths['cnt'][i]) / float(df_paths['cnt'].max()),
             )
