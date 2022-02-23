@@ -48,7 +48,7 @@ def drawPath(file='../../communes/communes.xlsx', scale=10, paths=None) -> None:
         text=df_cities['nom_commune_majuscule'],
         mode='markers',
         marker=dict(
-            size=2,
+            size=4,
             color='rgb(0, 0, 0)',
 
         )))
@@ -87,6 +87,3 @@ def drawPath(file='../../communes/communes.xlsx', scale=10, paths=None) -> None:
 
     )
     fig.show()
-
-
-drawPath()

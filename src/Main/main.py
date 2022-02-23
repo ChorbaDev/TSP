@@ -9,9 +9,11 @@ from src.Algorithm.Random.Random import RandomSolution
 from src.Algorithm.GA.GeneticAlgorithm import geneticAlgorithm
 from src.utils.colors import bcolors
 from src.utils.help import printGraph
+from src.utils.drawingMap import drawPath
 import sys
 
 nom = "../../communes/communes/" + sys.argv[1]
+file = "../../communes/communes.xlsx"
 
 numberOfAlgos = 11
 while True:
@@ -39,7 +41,7 @@ switcher = {
     3: NearestNeighbour(G, n, chosenStartTown),
     4: NearestInsertion(G, n, 7),
     5: hillClimbing(G, n, chosenStartTown),
-    6: geneticAlgorithm(G, n, 100, 20, 0.01, generations=500),
+    # 6: geneticAlgorithm(G, n, 100, 20, 0.01, generations=500),
     # 7:NearestInsertion(G,n,7),
 }
 path, cost, time = switcher.get(algo)
@@ -53,19 +55,30 @@ print(bcolors.UNDERLINE + "1- Simple Exchange")
 print("2- (2-Opt) Exchange")
 print("3- No, Thanks." + bcolors.ENDC)
 answer = int(input("->"))
-if answer in range(1,3):
-    switcher={
-        1:EchangeDeuxSommets(G,path.copy(),chosenTime),
-        2:two_opt(path.copy(),G),
+if answer in range(1, 3):
+    switcher = {
+        1: EchangeDeuxSommets(G, path.copy(), chosenTime),
+        2: two_opt(path.copy(), G),
     }
-    bestPath,bestCost,comparisons,improve,iterations=switcher.get(answer)
-    print(bcolors.BOLD+"Number of improvements is: ",bcolors.OKGREEN,improve,bcolors.ENDC)
-    print(bcolors.BOLD+"Number of iterations is: ",bcolors.OKGREEN,iterations,bcolors.ENDC)
-    if answer==2:
-        print(bcolors.BOLD+"The comparisons is: ",bcolors.OKGREEN,comparisons,bcolors.ENDC)
-    print(bcolors.BOLD+"The optimized path is: ",bcolors.OKGREEN,bestPath,bcolors.ENDC)
-    print(bcolors.BOLD+"The optimized cost is: ",bcolors.OKGREEN,bestCost,bcolors.ENDC)
-print(bcolors.HEADER+"See you! Salesman.")
-#2731
-#print(routeLength(G,[0, 9, 7, 2, 1, 4, 6, 3, 8, 5] ))
-#print(two_opt([0, 9, 7, 2, 1, 4, 6, 3, 8, 5] ,G))
+    bestPath, bestCost, comparisons, improve, iterations = switcher.get(answer)
+    print(bcolors.BOLD + "Number of improvements is: ", bcolors.OKGREEN, improve, bcolors.ENDC)
+    print(bcolors.BOLD + "Number of iterations is: ", bcolors.OKGREEN, iterations, bcolors.ENDC)
+    path = bestPath.copy()
+    if answer == 2:
+        print(bcolors.BOLD + "The comparisons is: ", bcolors.OKGREEN, comparisons, bcolors.ENDC)
+    print(bcolors.BOLD + "The optimized path is: ", bcolors.OKGREEN, bestPath, bcolors.ENDC)
+    print(bcolors.BOLD + "The optimized cost is: ", bcolors.OKGREEN, bestCost, bcolors.ENDC)
+
+print(bcolors.BOLD + bcolors.WARNING + "Do you want to plot the graph?")
+print(bcolors.UNDERLINE + "1- Plot graph.")
+print("2- Please, exit." + bcolors.ENDC)
+answer = int(input("->"))
+if answer in range(1, 2):
+    path.append(path[0])
+    switcher = {
+        1: drawPath(file=file, scale=n, paths=path),
+    }
+print(bcolors.HEADER + "See you! Salesman.")
+# 2731
+# print(routeLength(G,[0, 9, 7, 2, 1, 4, 6, 3, 8, 5] ))
+# print(two_opt([0, 9, 7, 2, 1, 4, 6, 3, 8, 5] ,G))
