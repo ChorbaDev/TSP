@@ -2,8 +2,8 @@
 #include<stdlib.h>
 #include<string.h>
 //#include "../../src/Algorithmique/PPV/PPV.c"
-#include "../C/BruteForce/BruteForce.c"
-//#include "NearestNeighbour.c"
+//#include "../C/BruteForce/BruteForce.c"
+#include "../C/NearestNeighbour/NearestNeighbour.c"
 //#include "Random.c"
 //#include "BruteForce.c"
 
@@ -41,9 +41,9 @@ int main()
     t1 = clock();
 
     //PPV(G,n,0,visite,path);
-    //NearestNeighbour(G,n,0,path);
+    NearestNeighbour(G,n,0,path);
     //randomPath(G,0,n,path,1000000);
-    BruteForce(G,n,0,path);
+    //BruteForce(G,n,0,path);
     t2 = clock();
     printf("nombre de ticks d'horloge avant la boucle : %lu\n", t1);
     printf("nombre de ticks d'horloge après la boucle : %lu\n", t2);
