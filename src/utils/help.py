@@ -44,4 +44,10 @@ def routeLength(tsp, solution):
 def rand_num(start, end):
     return random.randint(start, end - 1)
 
+def swap(listToSwap, i1, i2):
+    temp = listToSwap[i1]
+    listToSwap[i1] = listToSwap[i2]
+    listToSwap[i2] = temp
+    return listToSwap
+
 
