@@ -1,9 +1,11 @@
 from lire_data import lire
+from src.Algorithm.ACO.ACO import ACO
 from src.Algorithm.BruteForce.BruteForce import BruteForce
 from src.Algorithm.HillClimbing.HillClimbing import hillClimbing
 from src.Algorithm.NearestInsertion.NearestInsertion import NearestInsertion
 from src.Algorithm.NearestNeighbour.NearestNeighbour import NearestNeighbour
 from src.Algorithm.Optimization.EchangeDeuxSommets import EchangeDeuxSommets
+from src.Algorithm.Optimization.three_opt import three_opt
 from src.Algorithm.Optimization.two_opt import two_opt
 from src.Algorithm.Random.Random import RandomSolution
 from src.Algorithm.GA.GeneticAlgorithm import genetic_algorithm
@@ -48,7 +50,8 @@ elif algo == 5:
     path, cost, time = hillClimbing(G, n, chosenStartTown)
 elif algo == 6:
     path, cost, time = genetic_algorithm(G, n, 100, 0.3, 10000)
-# elif algo==7 : path, cost, time=ACO(G, n, 100, 20, 0.01, generations=500)
+elif algo==7:
+    path, cost, time=ACO(G,n, chosenStartTown, 100000, 0.05,0.0453, 1,1,1)
 
 print(bcolors.BOLD + "Starting city :", bcolors.OKGREEN, int(sys.argv[2], 10), bcolors.ENDC)
 print(bcolors.BOLD + "Path: ", bcolors.OKGREEN, path, bcolors.ENDC)
@@ -58,20 +61,23 @@ print(bcolors.BOLD + bcolors.OKCYAN + "Time: %.6f " % time, bcolors.ENDC)
 print(bcolors.BOLD + bcolors.WARNING + "Do you want to optimize?:")
 print(bcolors.UNDERLINE + "1- Simple Exchange")
 print("2- (2-Opt) Exchange")
-print("3- No, Thanks." + bcolors.ENDC)
+print("3- (3-Opt) Exchange")
+print("4- No, Thanks." + bcolors.ENDC)
 answer = int(input("->"))
 bestPath, bestCost, comparisons, improve, iterations = [], 0, 0, 0, 0
 if answer == 1:
     bestPath, bestCost, comparisons, improve, iterations = EchangeDeuxSommets(G, path.copy(), chosenTime)
 elif answer == 2:
-    bestPath, bestCost, comparisons, improve, iterations = two_opt(path.copy(), G)
+    bestPath, bestCost, comparisons, improve, iterations = two_opt(path.copy(),G)
+elif answer == 3:
+    bestPath, bestCost, comparisons, improve, iterations = three_opt(path.copy(),G)
 
-if answer in range(1, 3):
+if answer in range(1, 4):
     print(bcolors.BOLD + "Number of improvements is: ", bcolors.OKGREEN, improve, bcolors.ENDC)
     print(bcolors.BOLD + "Number of iterations is: ", bcolors.OKGREEN, iterations, bcolors.ENDC)
     path = bestPath.copy()
-    if answer == 2:
-        print(bcolors.BOLD + "The comparisons is: ", bcolors.OKGREEN, comparisons, bcolors.ENDC)
+    if answer == 2 or answer==3:
+        print(bcolors.BOLD + "Number of comparisons is: ", bcolors.OKGREEN, comparisons, bcolors.ENDC)
     print(bcolors.BOLD + "The optimized path is: ", bcolors.OKGREEN, bestPath, bcolors.ENDC)
     print(bcolors.BOLD + "The optimized cost is: ", bcolors.OKGREEN, bestCost, bcolors.ENDC)
 
