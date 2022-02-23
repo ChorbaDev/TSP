@@ -8,7 +8,7 @@ from src.Algorithm.Optimization.two_opt import two_opt
 from src.Algorithm.Random.Random import RandomSolution
 from src.Algorithm.GA.GeneticAlgorithm import geneticAlgorithm
 from src.utils.colors import bcolors
-from src.utils.help import printGraph
+from src.utils.help import printGraph, routeLength
 from src.utils.drawingMap import drawPath
 import sys
 
@@ -35,16 +35,20 @@ print(bcolors.BOLD + "Graph :" + bcolors.ENDC)
 printGraph(G, n)
 chosenTime = int(sys.argv[3], 10)
 chosenStartTown = int(sys.argv[2], 10)
-switcher = {
-    1: RandomSolution(G, chosenStartTown, n, chosenTime),
-    2: BruteForce(G, n, chosenStartTown),
-    3: NearestNeighbour(G, n, chosenStartTown),
-    4: NearestInsertion(G, n, 7),
-    5: hillClimbing(G, n, chosenStartTown),
-    # 6: geneticAlgorithm(G, n, 100, 20, 0.01, generations=500),
-    # 7:NearestInsertion(G,n,7),
-}
-path, cost, time = switcher.get(algo)
+path, cost, time = [], 0, 0
+if algo == 1:
+    path, cost, time = RandomSolution(G, chosenStartTown, n, chosenTime)
+elif algo == 2:
+    path, cost, time = BruteForce(G, n, chosenStartTown)
+elif algo == 3:
+    path, cost, time = NearestNeighbour(G, n, chosenStartTown)
+elif algo == 4:
+    path, cost, time = NearestInsertion(G, n, 7)
+elif algo == 5:
+    path, cost, time = hillClimbing(G, n, chosenStartTown)
+# elif algo==6 : path, cost, time=geneticAlgorithm(G, n, 100, 20, 0.01, generations=500)
+# elif algo==7 : path, cost, time=ACO(G, n, 100, 20, 0.01, generations=500)
+
 print(bcolors.BOLD + "Starting city :", bcolors.OKGREEN, int(sys.argv[2], 10), bcolors.ENDC)
 print(bcolors.BOLD + "Path: ", bcolors.OKGREEN, path, bcolors.ENDC)
 print(bcolors.BOLD + "Cost: ", bcolors.OKGREEN, cost, bcolors.ENDC)
@@ -55,12 +59,13 @@ print(bcolors.UNDERLINE + "1- Simple Exchange")
 print("2- (2-Opt) Exchange")
 print("3- No, Thanks." + bcolors.ENDC)
 answer = int(input("->"))
+bestPath, bestCost, comparisons, improve, iterations = [], 0, 0, 0, 0
+if answer == 1:
+    bestPath, bestCost, comparisons, improve, iterations = EchangeDeuxSommets(G, path.copy(), chosenTime)
+elif answer == 2:
+    bestPath, bestCost, comparisons, improve, iterations = two_opt(path.copy(), G)
+
 if answer in range(1, 3):
-    switcher = {
-        1: EchangeDeuxSommets(G, path.copy(), chosenTime),
-        2: two_opt(path.copy(), G),
-    }
-    bestPath, bestCost, comparisons, improve, iterations = switcher.get(answer)
     print(bcolors.BOLD + "Number of improvements is: ", bcolors.OKGREEN, improve, bcolors.ENDC)
     print(bcolors.BOLD + "Number of iterations is: ", bcolors.OKGREEN, iterations, bcolors.ENDC)
     path = bestPath.copy()
@@ -73,12 +78,11 @@ print(bcolors.BOLD + bcolors.WARNING + "Do you want to plot the graph?")
 print(bcolors.UNDERLINE + "1- Plot graph.")
 print("2- Please, exit." + bcolors.ENDC)
 answer = int(input("->"))
-if answer in range(1, 2):
+if answer==1:
     path.append(path[0])
-    switcher = {
-        1: drawPath(file=file, scale=n, paths=path),
-    }
+    drawPath(file=file, scale=n, paths=path)
+
 print(bcolors.HEADER + "See you! Salesman.")
 # 2731
-# print(routeLength(G,[0, 9, 7, 2, 1, 4, 6, 3, 8, 5] ))
+
 # print(two_opt([0, 9, 7, 2, 1, 4, 6, 3, 8, 5] ,G))
