@@ -25,6 +25,7 @@ def EchangeDeuxSommets(tsp, path, s):
     bestPath = path.copy()
     bestCost = routeLength(tsp, path)
     improve, comparisons, iterations = 0, 0, 0
+    t1_start = time.process_time()
     while time.time() < t_end:
         next_perm(path)
         cost = routeLength(tsp, path)
@@ -33,4 +34,5 @@ def EchangeDeuxSommets(tsp, path, s):
             bestCost = cost
             bestPath = path.copy()
         iterations += 1
-    return bestPath, bestCost, comparisons, improve, iterations
+    t1_stop = time.process_time()
+    return bestPath, bestCost, comparisons, improve, iterations, (t1_stop - t1_start)

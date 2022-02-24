@@ -11,12 +11,14 @@ import plotly.io as pio
 #     fig.show()
 
 
-def drawPath(file='../../communes/communes.xlsx', scale=10, paths=None) -> None:
+def drawPath(file='../../communes/communes.xlsx', scale=10, paths=None, cost=0, time=0) -> None:
     """
             draws the path between two cities according to a given list
             :param paths: a complete path to draw
             :param file: file leading to the xl
             :param scale: amount of cities to display
+            :param cost:
+            :param time:
             """
     if paths is None:
         paths = [i for i in range(0, scale)]
@@ -63,7 +65,7 @@ def drawPath(file='../../communes/communes.xlsx', scale=10, paths=None) -> None:
         center=dict(lat=lat_foc, lon=lon_foc),  # this will center on the point
     )
     fig.update_layout(
-        title_text='The true beauty of things',
+        title_text='Cost = ' + str(cost) + "  Execution time = " + str(time),
         showlegend=True,
         margin={'l': 0, 't': 50, 'b': 0, 'r': 0},
         # updatemenus={

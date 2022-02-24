@@ -1,3 +1,5 @@
+from time import process_time
+
 from src.utils.help import routeLength
 
 
@@ -44,6 +46,7 @@ def all_segments(n):
 
 def three_opt(tour, distance):
     iterations, improve, comparisons = 0, 0, 0
+    t1_start = process_time()
     while True:
         iterations += 1
         delta = 0
@@ -55,4 +58,5 @@ def three_opt(tour, distance):
                 improve += 1
         if delta >= 0:
             break
-    return tour, routeLength(distance, tour), comparisons, improve, iterations
+    t1_stop = process_time()
+    return tour, routeLength(distance, tour), comparisons, improve, iterations, (t1_stop - t1_start)

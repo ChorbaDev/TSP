@@ -69,3 +69,14 @@ Visualiser les tournées sur une carte de France. Le fichier [communes.xlsx](htt
 à l’aide de ces coordonnées cartésiennes.
 
 
+# <div align="center">  Pre-requis </div>
+
+## intaller les paquets suivant:
+
+- plotly
+- pandas
+- random
+- sys
+- numpy
+- time
+- 

@@ -49,9 +49,9 @@ elif algo == 4:
 elif algo == 5:
     path, cost, time = hillClimbing(G, n, chosenStartTown)
 elif algo == 6:
-    path, cost, time = genetic_algorithm(G, n, 100, 0.3, 10000)
-elif algo==7:
-    path, cost, time=ACO(G,n, chosenStartTown, 100000, 0.05,0.0453, 1,1,1)
+    path, cost, time = genetic_algorithm(G, n, 100, 0.8, 1500)
+elif algo == 7:
+    path, cost, time = ACO(G, n, chosenStartTown, 100000, 0.05, 0.0453, 1, 1, 1)
 
 print(bcolors.BOLD + "Starting city :", bcolors.OKGREEN, int(sys.argv[2], 10), bcolors.ENDC)
 print(bcolors.BOLD + "Path: ", bcolors.OKGREEN, path, bcolors.ENDC)
@@ -64,22 +64,26 @@ print("2- (2-Opt) Exchange")
 print("3- (3-Opt) Exchange")
 print("4- No, Thanks." + bcolors.ENDC)
 answer = int(input("->"))
-bestPath, bestCost, comparisons, improve, iterations = [], 0, 0, 0, 0
+bestPath, bestCost, comparisons, improve, iterations, t2 = [], 0, 0, 0, 0, 0
 if answer == 1:
-    bestPath, bestCost, comparisons, improve, iterations = EchangeDeuxSommets(G, path.copy(), chosenTime)
+    bestPath, bestCost, comparisons, improve, iterations, t2 = EchangeDeuxSommets(G, path.copy(), chosenTime)
 elif answer == 2:
-    bestPath, bestCost, comparisons, improve, iterations = two_opt(path.copy(),G)
+    bestPath, bestCost, comparisons, improve, iterations, t2 = two_opt(path.copy(), G)
 elif answer == 3:
-    bestPath, bestCost, comparisons, improve, iterations = three_opt(path.copy(),G)
+    bestPath, bestCost, comparisons, improve, iterations, t2 = three_opt(path.copy(), G)
+
+time += t2
 
 if answer in range(1, 4):
     print(bcolors.BOLD + "Number of improvements is: ", bcolors.OKGREEN, improve, bcolors.ENDC)
     print(bcolors.BOLD + "Number of iterations is: ", bcolors.OKGREEN, iterations, bcolors.ENDC)
     path = bestPath.copy()
-    if answer == 2 or answer==3:
+    cost = bestCost
+    if answer == 2 or answer == 3:
         print(bcolors.BOLD + "Number of comparisons is: ", bcolors.OKGREEN, comparisons, bcolors.ENDC)
     print(bcolors.BOLD + "The optimized path is: ", bcolors.OKGREEN, bestPath, bcolors.ENDC)
     print(bcolors.BOLD + "The optimized cost is: ", bcolors.OKGREEN, bestCost, bcolors.ENDC)
+    print(bcolors.BOLD + "The new time is: ", bcolors.OKGREEN, time, bcolors.ENDC)
 
 print(bcolors.BOLD + bcolors.WARNING + "Do you want to plot the graph?")
 print(bcolors.UNDERLINE + "1- Plot graph.")
@@ -87,7 +91,7 @@ print("2- Please, exit." + bcolors.ENDC)
 answer = int(input("->"))
 if answer == 1:
     path.append(path[0])
-    drawPath(file=file, scale=n, paths=path)
+    drawPath(file=file, scale=n, paths=path, cost=cost, time=time)
 
 print(bcolors.HEADER + "See you! Salesman.")
 # 2731

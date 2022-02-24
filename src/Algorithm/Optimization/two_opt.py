@@ -1,3 +1,5 @@
+from time import process_time
+
 import numpy as np
 
 from src.utils.help import routeLength
@@ -9,6 +11,7 @@ def two_opt(path, tsp):
     improved = True
     best = path.copy()
     improve, comparisons, iterations = 0, 0, 0
+    t1_start = process_time()
     while improved:
         improved = False
         for i in range(1, len(path) - 2):
@@ -23,4 +26,5 @@ def two_opt(path, tsp):
                     improve += 1
         path = best
         iterations += 1
-    return best, routeLength(tsp, best), comparisons, improve, iterations
+    t1_stop = process_time()
+    return best, routeLength(tsp, best), comparisons, improve, iterations, (t1_stop - t1_start)
