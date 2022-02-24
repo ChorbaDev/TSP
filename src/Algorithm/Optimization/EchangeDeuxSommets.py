@@ -4,22 +4,6 @@ import random
 
 import time
 
-
-def randomValue(a, b, start):
-    x = random.randint(a, b)
-    while x == start:
-        x = random.randint(a, b)
-    return x
-
-
-def randomEdge(n, start):
-    x = randomValue(0, n - 1, start)
-    y = randomValue(0, n - 1, start)
-    while x == y:
-        y = randomValue(0, n - 1, start)
-    return x, y
-
-
 def EchangeDeuxSommets(tsp, path, s):
     t_end = time.time() + s
     bestPath = path.copy()
@@ -27,12 +11,17 @@ def EchangeDeuxSommets(tsp, path, s):
     improve, comparisons, iterations = 0, 0, 0
     t1_start = time.process_time()
     while time.time() < t_end:
-        next_perm(path)
-        cost = routeLength(tsp, path)
-        if bestCost > cost:
-            improve += 1
-            bestCost = cost
-            bestPath = path.copy()
-        iterations += 1
+        for i in range(1,len(path)):
+            for j in range(i+1,len(path)):
+                iterations += 1
+                test=bestPath.copy()
+                test[i],test[j]=test[j],test[i]
+                cost = routeLength(tsp, test)
+                if bestCost > cost:
+                    improve += 1
+                    bestCost = cost
+                    bestPath = test.copy()
+                    break
     t1_stop = time.process_time()
     return bestPath, bestCost, comparisons, improve, iterations, (t1_stop - t1_start)
+

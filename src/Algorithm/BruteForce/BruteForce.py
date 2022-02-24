@@ -1,9 +1,10 @@
 from math import factorial
 from sys import maxsize
 from time import process_time
-from src.utils.help import next_perm
+from src.utils.help import next_perm, routeLength
 
-#complexity of O(n!)
+
+#complexity of O(n-1!)
 
 def BruteForce(tsp,n,startCity):
     vertex=[]
@@ -22,6 +23,8 @@ def BruteForce(tsp,n,startCity):
             if currentCost>=minCost:
                 break
             k=vertex[i]
+        if currentCost>=minCost:
+            continue
         currentCost+=tsp[(k,startCity)]
         if currentCost<minCost:
             minCost=currentCost
@@ -29,5 +32,3 @@ def BruteForce(tsp,n,startCity):
     t1_stop = process_time()
     bestPath.insert(0,startCity)
     return bestPath,minCost,(t1_stop-t1_start)
-
-
