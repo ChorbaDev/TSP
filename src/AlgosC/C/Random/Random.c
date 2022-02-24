@@ -1,7 +1,7 @@
 //
 // Created by omar on 21/02/2022.
 //
-#include "help.c"
+#include "../../utils/help.c"
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>

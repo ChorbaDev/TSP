@@ -3,10 +3,10 @@
 #include<string.h>
 //#include "../../src/Algorithmique/PPV/PPV.c"
 //#include "../C/BruteForce/BruteForce.c"
-#include "../C/NearestNeighbour/NearestNeighbour.c"
-//#include "Random.c"
+//#include "../C/NearestNeighbour/NearestNeighbour.c"
+#include "../C/Random/Random.c"
 //#include "BruteForce.c"
-#include "../C/Optimization/two_opt.c"
+//#include "../C/Optimization/two_opt.c"
 
 typedef int ** Graphe;
 
@@ -42,8 +42,8 @@ int main()
     t1 = clock();
 
     //PPV(G,n,0,visite,path);
-    NearestNeighbour(G,n,0,path);
-    //randomPath(G,0,n,path,1000000);
+    //NearestNeighbour(G,n,0,path);
+    randomPath(G,0,n,path,1000000);
     //BruteForce(G,n,0,path);
     //two_opt(path,G);
     //BruteForce(G,n,0,path);
