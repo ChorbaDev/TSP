@@ -1,6 +1,6 @@
 #include <limits.h>
 #include <stdio.h>
-#include "../../utils/help.c"
+#include "NearestNeighbour.h"
 
 int find_closest(int** tsp,int* path,int n,int start,int startTown){
     int minPos=start,minCost=INT_MAX;
@@ -8,7 +8,6 @@ int find_closest(int** tsp,int* path,int n,int start,int startTown){
         if( start==i || startTown==i || existsIn(path,n,i)==1){
             continue;
         }
-
         if(minCost> tsp[start][i]){
             minCost=tsp[start][i];
             minPos=i;

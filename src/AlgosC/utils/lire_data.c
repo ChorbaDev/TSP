@@ -1,13 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-//#include "../../src/Algorithmique/PPV/PPV.c"
-//#include "../C/BruteForce/BruteForce.c"
-//#include "../C/NearestNeighbour/NearestNeighbour.c"
+#include "../C/BruteForce/BruteForce.c"
+#include "../C/NearestNeighbour/NearestNeighbour.c"
 #include "../C/Random/Random.c"
-//#include "BruteForce.c"
-//#include "../C/Optimization/two_opt.c"
-
 typedef int ** Graphe;
 
 // lecture des données dans un fichier et construction du graphe
@@ -30,7 +26,10 @@ int main()
 	{
 		printf("saisir le nom de fichier de données : ");
 		scanf("%s", nom); while(getchar() != '\n');
-		err = lire_data(nom, &G, &n, &m);
+        char *ch= malloc(sizeof(char)*100);
+        strcat(ch,"../../../communes/communes/");
+        strcat(ch,nom);
+		err = lire_data(ch, &G, &n, &m);
 	}
 	while(err == 0);
     affiche_km(G, n);
@@ -40,13 +39,20 @@ int main()
     }
 
     t1 = clock();
-
-    //PPV(G,n,0,visite,path);
-    //NearestNeighbour(G,n,0,path);
-    randomPath(G,0,n,path,1000000);
-    //BruteForce(G,n,0,path);
-    //two_opt(path,G);
-    //BruteForce(G,n,0,path);
+    printf("Vous voulez utiliser quelle algo?\n"
+           "1-Plus proche voisin\n"
+           "2-Aléatoire\n"
+           "3-Brute Force\n");
+    int reponse;
+    do {
+        scanf("%d",&reponse);
+    }while(reponse<1 || reponse>3);
+    switch (reponse) {
+        case 1:NearestNeighbour(G,n,0,path);break;
+        case 2:randomPath(G,0,n,path,10000);
+        case 3:BruteForce(G,n,0,path);
+        default:break;
+    }
     t2 = clock();
     printf("nombre de ticks d'horloge avant la boucle : %lu\n", t1);
     printf("nombre de ticks d'horloge après la boucle : %lu\n", t2);

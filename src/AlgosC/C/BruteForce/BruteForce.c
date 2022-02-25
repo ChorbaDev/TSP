@@ -2,6 +2,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../../utils/help.c"
+#include "BruteForce.h"
+
+void BruteForce(int** tsp,int n,int startCity,int* path){
+    int *vertex= malloc(sizeof(int)*n);
+    int j=0;
+    for (int i = 0; i < n; ++i) {
+        if(i!=startCity){
+            vertex[j]=i;
+            j++;
+        }
+    }
+    int minCost=INT_MAX;
+    int *bestPath= malloc(sizeof(int)*n);
+
+    while (nextPermutation(vertex,n-1)>0){
+        int currentCost=0;
+        int k=startCity;
+        for (int i = 0; i < n-1; ++i) {
+            currentCost+=tsp[k][vertex[i]];
+            if(currentCost>=minCost)
+                break;
+            k=vertex[i];
+        }
+        if(currentCost>=minCost)
+            continue;
+        currentCost+=tsp[k][startCity];
+        if(currentCost<minCost){
+            copyArray(bestPath,vertex,n);
+            minCost=currentCost;
+        }
+    }
+
+    insertInPos(bestPath,n,0,startCity);
+    copyArray(path,bestPath,n);
+    free(bestPath);
+    free(vertex);
+}
+
 // swap two characters of string
 void swap(int* sb,int l,int r)
 {
@@ -71,36 +109,4 @@ int nextPermutation(int *sb,int n)
         reverse(sb,i+1,len-1);
         return 1;
     }
-}
-
-void BruteForce(int** tsp,int n,int startCity,int* path){
-    int *vertex= malloc(sizeof(int)*n);
-    int j=0;
-    for (int i = 0; i < n; ++i) {
-        if(i!=startCity){
-            vertex[j]=i;
-            j++;
-        }
-    }
-    int minCost=INT_MAX;
-    int *bestPath= malloc(sizeof(int)*n);
-    while (nextPermutation(vertex,n-1)>0){
-        int currentCost=0;
-        int k=startCity;
-        for (int i = 0; i < n-1; ++i) {
-            currentCost+=tsp[k][vertex[i]];
-            if(currentCost>=minCost)
-                break;
-            k=vertex[i];
-        }
-        currentCost+=tsp[k][startCity];
-        if(currentCost<minCost){
-            copyArray(bestPath,vertex,n);
-            minCost=currentCost;
-        }
-    }
-    insertInPos(bestPath,n,0,startCity);
-    copyArray(path,bestPath,n);
-    free(bestPath);
-    free(vertex);
 }
