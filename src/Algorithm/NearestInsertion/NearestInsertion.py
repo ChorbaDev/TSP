@@ -6,16 +6,16 @@ from src.utils.help import routeLength
 
 def closestPoint(path,points,tsp):
     minLength = float("inf")
-    closestPoint = None
+    closestP = None
     for inPoint in path:
         for outPoint in points:
             d = tsp[(inPoint, outPoint)]
             if d < minLength:
                 minLength = d
-                closestPoint = outPoint
+                closestP = outPoint
 
     # return the length and closestPoint
-    return minLength, closestPoint
+    return minLength, closestP
 
 
 def insertNodeToPath(path,tsp,insertNode):
