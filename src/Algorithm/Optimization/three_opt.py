@@ -16,10 +16,16 @@ def reverse_segment_if_better(distance, tour, i, j, k):
     #
     # we try all the possibilities and we return the first optimized tour
     d0 = distance[(A, B)] + distance[(C, D)] + distance[(E, F)]
+    #
     d1 = distance[(A, C)] + distance[(B, D)] + distance[(E, F)]
     d2 = distance[(A, B)] + distance[(C, E)] + distance[(D, F)]
-    d3 = distance[(A, D)] + distance[(E, B)] + distance[(C, F)]
     d4 = distance[(F, B)] + distance[(C, D)] + distance[(E, A)]
+
+    d3 = distance[(A, D)] + distance[(E, B)] + distance[(C, F)]
+    d5 = distance[(A, D)] + distance[(B, F)] + distance[(C, E)]
+    d6 = distance[(A, C)] + distance[(B, E)] + distance[(D, F)]
+    d7 = distance[(A, E)] + distance[(B, D)] + distance[(C, F)]
+
     if d0 > d1:
         tour[i:j] = reversed(tour[i:j])
         return -d0 + d1
@@ -33,6 +39,18 @@ def reverse_segment_if_better(distance, tour, i, j, k):
         tmp = tour[j:k] + tour[i:j]
         tour[i:k] = tmp
         return -d0 + d3
+    elif d0 > d5:
+        tmp = tour[j:k] + tour[i:j]
+        tour[i:k] = tmp
+        return -d0 + d5
+    elif d0 > d6:
+        tmp = tour[j:k] + tour[i:j]
+        tour[i:k] = tmp
+        return -d0 + d6
+    elif d0 > d7:
+        tmp = tour[j:k] + tour[i:j]
+        tour[i:k] = tmp
+        return -d0 + d7
     return 0
 
 

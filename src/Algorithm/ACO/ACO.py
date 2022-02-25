@@ -12,7 +12,7 @@ AP: Artificial Pheromone 0.0453
 """
 
 
-def ACO(G, n, startTown, iteration, PER, AP, alpha=1, beta=1, Q=1):
+def ACO(G, n, startTown, iteration, AP, alpha=1, beta=1):
     startAgain=startTown
     bestTravel=[]
     bestCost=maxsize
@@ -29,7 +29,7 @@ def ACO(G, n, startTown, iteration, PER, AP, alpha=1, beta=1, Q=1):
                 sum += tour[town]
             for i in notVisited:
                 tour[i] = tour.get(i) / sum
-            Solution_Set = { i: Q for i in range(n)}
+            Solution_Set = { i: 1 for i in range(n)}
             add = 0
             for i in notVisited:
                 Solution_Set[i]=tour[i] + add

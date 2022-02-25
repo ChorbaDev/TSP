@@ -49,9 +49,9 @@ elif algo == 4:
 elif algo == 5:
     path, cost, time = hillClimbing(G, n, chosenStartTown)
 elif algo == 6:
-    path, cost, time = genetic_algorithm(G, n, 100, 0.8, 1500)
+    path, cost, time = genetic_algorithm(G, n,100,0.05,1000)
 elif algo == 7:
-    path, cost, time = ACO(G, n, chosenStartTown, 100000, 0.05, 0.0453, 1, 1, 1)
+    path, cost, time = ACO(G, n, chosenStartTown, 10000, 0.0453, 1, 1)
 
 print(bcolors.BOLD + "Starting city :", bcolors.OKGREEN, int(sys.argv[2], 10), bcolors.ENDC)
 print(bcolors.BOLD + "Path: ", bcolors.OKGREEN, path, bcolors.ENDC)
